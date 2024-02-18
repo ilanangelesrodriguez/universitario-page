@@ -1,9 +1,10 @@
 import './style.css'
+import logo from '/public/logo.svg'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <div>
-        <img src="/public/logo.svg" alt="Logo" style="width: 100px;">
+        <img src="${logo}" alt="Logo" style="width: 100px;">
         <h1>CLUB UNIVERSITARIO DE DEPORTES</h1>
         <h2>Producto de Base de Datos II</h2>
     </div>
