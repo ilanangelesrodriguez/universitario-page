@@ -3,7 +3,7 @@ import './style.css'
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <div>
-        <img src="/public/Logo_Universitario.png" alt="Logo" style="width: 100px;">
+        <img src="/assets/images/Logo_Universitario.png" alt="Logo" style="width: 100px;">
         <h1>CLUB UNIVERSITARIO DE DEPORTES</h1>
         <h2>Producto de Base de Datos II</h2>
     </div>
