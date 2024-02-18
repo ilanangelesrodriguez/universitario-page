@@ -3,6 +3,15 @@ import logo from '/public/assets/logo.svg'
 import banner from '/public/assets/banner.jpg'
 import logoFooter from '/public/assets/logo_footer.png'
 
+// main.ts
+fetch('/data')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Ahora puedes usar `data` en tu aplicación
+    });
+
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <div>
