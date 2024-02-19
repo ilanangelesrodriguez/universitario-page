@@ -1,24 +1,28 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 
 export class Conexion {
-    private uri: string;
+    private static instance: Conexion;
     private client: MongoClient;
+    protected db: Db | null = null;
 
-    constructor(uri: string) {
-        this.uri = uri;
-        this.client = new MongoClient(this.uri);
+    private constructor() {
+        const uri = 'mongodb+srv://ilanangelesrodriguez:mongodb@cluster01.56hxznf.mongodb.net/?retryWrites=true&w=majority';
+        this.client = new MongoClient(uri);
     }
 
-    async connect() {
-        try {
-            await this.client.connect();
-            console.log('Conexión a MongoDB Atlas exitosa');
-        } catch (error) {
-            console.error('Error al conectar a MongoDB Atlas:', error);
+    public static getInstance(): Conexion {
+        if (!Conexion.instance) {
+            Conexion.instance = new Conexion();
         }
+        return Conexion.instance;
     }
 
-    getDatabase(databaseName: string) {
-        return this.client.db(databaseName);
+    public async connect(): Promise<Db> {
+        if (!this.db) {
+            await this.client.connect();
+            console.log('Conectado a la base de datos');
+            this.db = this.client.db('universitario');
+        }
+        return this.db;
     }
 }

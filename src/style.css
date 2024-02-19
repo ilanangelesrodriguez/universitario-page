@@ -85,7 +85,7 @@ button:focus-visible {
 
 footer {
   background-color: black;
-  background-image: url("/public/assets/back_footer.png");
+  background-image: url("/assets/back_footer.png");
   background-size: 100%;
   padding-bottom: 2em;
 }
