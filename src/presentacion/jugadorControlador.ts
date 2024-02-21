@@ -8,25 +8,32 @@ export class JugadorControlador {
         this.repository = new DataRepository(url);
     }
 
-    public mostrarJugadores(): void {
-        this.repository.getAll().then((jugadores: Jugador[]) => {
-            jugadores.forEach((jugador: Jugador) => {
-                const playerInfo = jugador.player;
-                const stats = jugador.statistics[0];
-                document.querySelector<HTMLDivElement>('#jugadores')!.innerHTML += `
-                    <div class="card">
-                        <img class="img" src="${playerInfo.photo}" alt="${playerInfo.name}">
-                        <span>${playerInfo.name}</span>
-                        <p>Edad: ${playerInfo.age}</p>
-                        <p>Equipo: ${stats.team.name}</p>
-                        <p>Posición: ${stats.games.position}</p>
-                        <p>Partidos jugados: ${stats.games.appearences}</p>
-                        <p>Goles: ${stats.goals.total}</p>
-                    </div>
-                `
-            });
-        }).catch(error => {
-            console.error('Error:', error);
+    async getAll(): Promise<Jugador[]> {
+        return this.repository.getAll();
+    }
+
+    async buscarJugador(nombre: string): Promise<void> {
+        const jugadores = await this.getAll();
+        const jugadoresFiltrados = jugadores.filter(jugador => jugador.player.name.includes(nombre));
+        this.mostrarJugadores(jugadoresFiltrados);
+    }
+
+    public mostrarJugadores(jugadores: Jugador[]): void {
+        document.querySelector<HTMLDivElement>('#jugadores')!.innerHTML = '';
+        jugadores.forEach((jugador: Jugador) => {
+            const playerInfo = jugador.player;
+            const stats = jugador.statistics[0];
+            document.querySelector<HTMLDivElement>('#jugadores')!.innerHTML += `
+                <div class="card">
+                    <img class="img" src="${playerInfo.photo}" alt="${playerInfo.name}">
+                    <span>${playerInfo.name}</span>
+                    <p><b>Edad:</b> ${playerInfo.age}</p>
+                    <p><b>Equipo:</b> ${stats.team.name}</p>
+                    <p><b>Posición:</b> ${stats.games.position}</p>
+                    <p><b>Partidos jugados:</b> ${stats.games.appearences}</p>
+                    <p><b>Goles:</b> ${stats.goals.total}</p>
+                </div>
+            `
         });
     }
 }
