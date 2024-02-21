@@ -2,6 +2,10 @@ import './style.css'
 import logo from '/assets/logo.svg'
 import banner from '/assets/banner.jpg'
 import logoFooter from '/assets/logo_footer.png'
+import {JugadorControlador} from "./presentacion/jugadorControlador.ts";
+
+const jugadorControlador = new JugadorControlador('http://localhost:3000/data');
+jugadorControlador.mostrarJugadores();
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML += `
   <div>
@@ -13,6 +17,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML += `
     
     <img src="${banner}" alt="Banner">
     <h3>Estadísticas del equipo de fútbol</h3>
+    
+    <div id="jugadores"></div>
+    
     <iframe style="background: #EFE7D2;border: none;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"  src="https://charts.mongodb.com/charts-estadisticas_futbol-fnugf/embed/dashboards?id=01b03876-6ec2-4859-83e0-eeb8fb88c81e&theme=light&autoRefresh=true&maxDataAge=3600&showTitleAndDesc=false&scalingWidth=scale&scalingHeight=fixed"></iframe>
     
     <footer>

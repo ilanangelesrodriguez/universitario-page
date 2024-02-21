@@ -1,7 +1,12 @@
 import express from 'express';
 import {MongoClient} from "mongodb";
+import cors from 'cors';
 
 const app = express();
+
+app.use(express.json());
+app.use(cors({ origin: 'http://localhost:5173' }));
+
 const uri = 'mongodb+srv://ilanangelesrodriguez:mongodb@cluster01.56hxznf.mongodb.net/?retryWrites=true&w=majority';
 const client = new MongoClient(uri);
 
@@ -23,6 +28,7 @@ app.get('/data', async (_req, res, next) => {
         const db = client.db('universitario');
         const data = await db.collection('jugadores').find().toArray();
         res.json(data);
+        data.forEach(item => console.log(item));
     } catch (error) {
         // Pasar el error al middleware de manejo de errores
         next(error);
